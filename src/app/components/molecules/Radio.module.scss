@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.radio {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  width: auto;
+  position: relative;
+  top: -2px;
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.label {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px;
+  width: auto;
+
+  &:hover {
+    color: #0950b4;
+  }
+}
