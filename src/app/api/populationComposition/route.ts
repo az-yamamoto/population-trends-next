@@ -49,8 +49,9 @@ export async function POST(req: Request) {
       return NextResponse.json(result)
     } catch (error) {
       console.error('Error fetching populationComposition:', error)
+      return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     }
   } else {
-    console.error('Method Not Allowed')
+    return NextResponse.json({ msg: 'wrong method' }, { status: 405 })
   }
 }

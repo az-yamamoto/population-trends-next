@@ -2,6 +2,7 @@ import GlobalHeader from '../organisms/GlobalHeader'
 import styles from './GraphPage.module.scss'
 import MainArea from '../organisms/MainArea'
 import { Prefecture } from '@/app/type/Prefecture'
+import { notFound } from 'next/navigation'
 
 async function fetchPrefectures() {
   const res = await fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
@@ -19,6 +20,10 @@ async function fetchPrefectures() {
 
 export default async function GraphPage() {
   const prefectures = await fetchPrefectures()
+
+  if (!prefectures) {
+    return notFound()
+  }
 
   const getRandomColor = () => {
     const randomInt = () => Math.floor(Math.random() * 256)
