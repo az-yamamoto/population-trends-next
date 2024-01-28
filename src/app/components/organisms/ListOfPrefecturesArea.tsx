@@ -1,6 +1,6 @@
 'use client'
 import CheckBox from '../molecules/CheckBox'
-import type { ExtendedPrefecture } from '../pages/GraphPage'
+import { PrefectureAndColor } from '../pages/GraphPage'
 import styles from './ListOfPrefecturesArea.module.scss'
 
 export default function ListOfPrefecturesArea(props: Props) {
@@ -23,6 +23,6 @@ export default function ListOfPrefecturesArea(props: Props) {
 }
 
 type Props = {
-  prefectures: ExtendedPrefecture[]
+  prefectures: PrefectureAndColor[]
   updatePrefecturesData: (code: number) => void
 }

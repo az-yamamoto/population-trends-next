@@ -1,11 +1,7 @@
 import GlobalHeader from '../organisms/GlobalHeader'
 import styles from './GraphPage.module.scss'
 import MainArea from '../organisms/MainArea'
-
-type Prefecture = {
-  prefCode: number
-  prefName: string
-}
+import { Prefecture } from '@/app/type/Prefecture'
 
 async function fetchPrefectures() {
   const res = await fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
@@ -43,7 +39,7 @@ export default async function GraphPage() {
   // 例: 47個のランダムな色を生成
   const randomColors = generateRandomColors(47)
 
-  let prefecturesData: ExtendedPrefecture[] = prefectures.map((prefecture, index) => ({
+  let prefecturesData: PrefectureAndColor[] = prefectures.map((prefecture, index) => ({
     ...prefecture,
     value: false,
     color: randomColors[index],
@@ -59,7 +55,7 @@ export default async function GraphPage() {
   )
 }
 
-export interface ExtendedPrefecture extends Prefecture {
+export interface PrefectureAndColor extends Prefecture {
   value: boolean
   color: string
 }

@@ -1,11 +1,10 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import type { ExtendedPrefecture } from '../pages/GraphPage'
-import LineGraph from '../molecules/LineGraph'
-import type { ChartData } from '../molecules/LineGraph'
+import LineGraph, { ChartData } from '../molecules/LineGraph'
 import styles from './GraphArea.module.scss'
 import Radio from '../molecules/Radio'
-import { PopulationDataResponse } from '@/app/api/populationComposition/route'
+import { PopulationComposition } from '@/app/type/PopulationComposition'
+import { PrefectureAndColor } from '../pages/GraphPage'
 
 const GraphType = [
   { name: '総人口', value: 0 },
@@ -16,7 +15,7 @@ const GraphType = [
 
 export default function GraphArea(props: Props) {
   const { prefectures } = props
-  const [populationDataList, setPopulationDataList] = useState<PopulationDataResponse[]>([])
+  const [populationDataList, setPopulationDataList] = useState<PopulationComposition[]>([])
   const [graphData, setGraphData] = useState<ChartData[]>([])
   const [graphType, setGraphType] = useState(0)
 
@@ -99,5 +98,5 @@ export default function GraphArea(props: Props) {
 }
 
 type Props = {
-  prefectures: ExtendedPrefecture[]
+  prefectures: PrefectureAndColor[]
 }

@@ -1,13 +1,13 @@
 'use client'
 import { useState } from 'react'
-import { ExtendedPrefecture } from '../pages/GraphPage'
 import ListOfPrefecturesArea from './ListOfPrefecturesArea'
 import GraphArea from './GraphArea'
+import { PrefectureAndColor } from '../pages/GraphPage'
 
 export default function MainArea(props: Props) {
   const { prefecturesData } = props
 
-  const [prefectures, setPrefectures] = useState<ExtendedPrefecture[]>(prefecturesData)
+  const [prefectures, setPrefectures] = useState<PrefectureAndColor[]>(prefecturesData)
 
   const updatePrefecturesData = (code: number) => {
     const copyPrefecturesData = [...prefectures]
@@ -29,5 +29,5 @@ export default function MainArea(props: Props) {
 }
 
 type Props = {
-  prefecturesData: ExtendedPrefecture[]
+  prefecturesData: PrefectureAndColor[]
 }

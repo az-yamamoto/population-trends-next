@@ -1,28 +1,11 @@
-import { ExtendedPrefecture } from '@/app/components/pages/GraphPage'
+import { PrefectureAndColor } from '@/app/components/pages/GraphPage'
+import { PopulationComposition } from '@/app/type/PopulationComposition'
 import { NextResponse } from 'next/server'
 
-type PopulationDataItem = {
-  year: number
-  value: number
-  rate?: number // rateは年少人口のデータにのみ存在する
-}
-
-type PopulationDataCategory = {
-  label: string
-  data: PopulationDataItem[]
-}
-
-export type PopulationDataResponse = {
-  prefCode: number
-  prefName: string
-  boundaryYear: number
-  data: PopulationDataCategory[]
-}
-
-async function fetchPopulationComposition(prefectures: ExtendedPrefecture[]) {
+async function fetchPopulationComposition(prefectures: PrefectureAndColor[]) {
   const selectedPrefectures = prefectures.filter((prefecture) => prefecture.value)
 
-  let newPopulationDataList: PopulationDataResponse[] = []
+  let newPopulationDataList: PopulationComposition[] = []
 
   if (selectedPrefectures.length === 0) {
     // value が true の都道府県がない場合は何もしない
