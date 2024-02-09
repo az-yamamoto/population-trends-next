@@ -12,8 +12,8 @@ export default function ListOfPrefecturesArea(props: Props) {
         <CheckBox
           key={prefecture.prefCode}
           id={`${prefecture.prefCode}`}
-          get={prefecture.value}
-          set={() => updatePrefecturesData(prefecture.prefCode)}
+          checked={prefecture.value}
+          onChange={() => updatePrefecturesData(prefecture.prefCode)}
           label={prefecture.prefName}
         />
       ))}

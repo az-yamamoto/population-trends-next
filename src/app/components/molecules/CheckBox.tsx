@@ -3,13 +3,13 @@ import styles from './CheckBox.module.scss'
 
 type Props = {
   id: string
-  get: boolean
-  set: () => void
+  checked: boolean
+  onChange: () => void
   label: string
 }
 
 export const CheckBox = (props: Props) => {
-  const { id, get, set, label } = props
+  const { id, checked: get, onChange: set, label } = props
 
   const hundleOnClick = (): void => {
     set()
