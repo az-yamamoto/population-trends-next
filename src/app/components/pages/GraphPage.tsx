@@ -1,8 +1,8 @@
-import GlobalHeader from '../organisms/GlobalHeader'
-import styles from './GraphPage.module.scss'
-import MainArea from '../organisms/MainArea'
 import { Prefecture } from '@/app/type/Prefecture'
 import { notFound } from 'next/navigation'
+import GlobalHeader from '../atoms/GlobalHeader'
+import MainArea from '../organisms/MainArea'
+import styles from './GraphPage.module.scss'
 
 async function fetchPrefectures() {
   const res = await fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
@@ -13,9 +13,7 @@ async function fetchPrefectures() {
   if (!res.ok) {
     throw new Error('Failed to fetch prefectures')
   }
-  const response = await res.json()
-  const prefectures: Prefecture[] = response.result
-  return prefectures
+  return (await res.json()) as Prefecture[]
 }
 
 export default async function GraphPage() {
@@ -33,28 +31,17 @@ export default async function GraphPage() {
     return `rgb(${r}, ${g}, ${b})`
   }
 
-  const generateRandomColors = (count: number) => {
-    const colors = []
-    for (let i = 0; i < count; i += 1) {
-      colors.push(getRandomColor())
-    }
-    return colors
-  }
-
-  // 例: 47個のランダムな色を生成
-  const randomColors = generateRandomColors(47)
-
-  let prefecturesData: PrefectureAndColor[] = prefectures.map((prefecture, index) => ({
+  let prefecturesData: PrefectureAndColor[] = prefectures.map((prefecture) => ({
     ...prefecture,
     value: false,
-    color: randomColors[index],
+    color: getRandomColor(),
   }))
 
   return (
     <>
       <GlobalHeader />
       <div className={styles.container}>
-        <MainArea prefecturesData={prefecturesData} />
+        <MainArea prefecturesDatas={prefecturesData} />
       </div>
     </>
   )

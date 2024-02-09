@@ -21,7 +21,7 @@ async function fetchPopulationComposition(prefectures: PrefectureAndColor[]) {
       }
     )
     if (!res.ok) {
-      throw new Error('Failed to fetch populationComposition')
+      throw new Error('Failed to fetch population-composition')
     }
     const response = await res.json()
     return {
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       const result = await fetchPopulationComposition(prefectures)
       return NextResponse.json(result)
     } catch (error) {
-      console.error('Error fetching populationComposition:', error)
+      console.error('Error fetching population-composition:', error)
       return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
     }
   } else {

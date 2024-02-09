@@ -1,8 +1,15 @@
 'use client'
 import styles from './CheckBox.module.scss'
 
-export default function CheckBox(props: Props) {
-  const { id, get, set, children } = props
+type Props = {
+  id: string
+  checked: boolean
+  onChange: () => void
+  label: string
+}
+
+export const CheckBox = (props: Props) => {
+  const { id, checked: get, onChange: set, label } = props
 
   const hundleOnClick = (): void => {
     set()
@@ -12,15 +19,8 @@ export default function CheckBox(props: Props) {
     <div className={styles.container}>
       <input onChange={hundleOnClick} className={styles.checkbox} type="checkbox" checked={get} id={id} />
       <label htmlFor={id} className={styles.label}>
-        {children}
+        {label}
       </label>
     </div>
   )
-}
-
-type Props = {
-  id: string
-  get: boolean
-  set: () => void
-  children: React.ReactNode
 }
