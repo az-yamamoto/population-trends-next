@@ -14,9 +14,8 @@ export default function ListOfPrefecturesArea(props: Props) {
           id={`${prefecture.prefCode}`}
           get={prefecture.value}
           set={() => updatePrefecturesData(prefecture.prefCode)}
-        >
-          {prefecture.prefName}
-        </CheckBox>
+          label={prefecture.prefName}
+        />
       ))}
     </div>
   )

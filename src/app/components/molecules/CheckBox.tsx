@@ -5,11 +5,11 @@ type Props = {
   id: string
   get: boolean
   set: () => void
-  children: React.ReactNode
+  label: string
 }
 
 export const CheckBox = (props: Props) => {
-  const { id, get, set, children } = props
+  const { id, get, set, label } = props
 
   const hundleOnClick = (): void => {
     set()
@@ -19,7 +19,7 @@ export const CheckBox = (props: Props) => {
     <div className={styles.container}>
       <input onChange={hundleOnClick} className={styles.checkbox} type="checkbox" checked={get} id={id} />
       <label htmlFor={id} className={styles.label}>
-        {children}
+        {label}
       </label>
     </div>
   )
