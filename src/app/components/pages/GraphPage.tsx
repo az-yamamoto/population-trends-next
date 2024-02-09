@@ -31,21 +31,10 @@ export default async function GraphPage() {
     return `rgb(${r}, ${g}, ${b})`
   }
 
-  const generateRandomColors = (count: number) => {
-    const colors = []
-    for (let i = 0; i < count; i += 1) {
-      colors.push(getRandomColor())
-    }
-    return colors
-  }
-
-  // 例: 47個のランダムな色を生成
-  const randomColors = generateRandomColors(47)
-
-  let prefecturesData: PrefectureAndColor[] = prefectures.map((prefecture, index) => ({
+  let prefecturesData: PrefectureAndColor[] = prefectures.map((prefecture) => ({
     ...prefecture,
     value: false,
-    color: randomColors[index],
+    color: getRandomColor(),
   }))
 
   return (
