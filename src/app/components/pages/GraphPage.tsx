@@ -13,9 +13,7 @@ async function fetchPrefectures() {
   if (!res.ok) {
     throw new Error('Failed to fetch prefectures')
   }
-  const response = await res.json()
-  const prefectures: Prefecture[] = response.result
-  return prefectures
+  return (await res.json()) as Prefecture[]
 }
 
 export default async function GraphPage() {
