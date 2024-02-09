@@ -22,7 +22,7 @@ export default function GraphArea(props: Props) {
   useEffect(() => {
     if (!prefectures || prefectures.length === 0) return
 
-    const fetchData = async () => {
+    const fetchPopulationDataList = async () => {
       try {
         // APIルートに対してリクエストを行う
         const response = await fetch('/api/population-composition', {
@@ -38,15 +38,18 @@ export default function GraphArea(props: Props) {
         }
 
         // 取得したデータを使ってグラフデータをセット
-        const result = await response.json()
-        setPopulationDataList(result)
+        return (await response.json()) as PopulationComposition[]
       } catch (error) {
         console.error('Error fetching data from API:', error)
         // エラーが発生した場合の処理を追加
       }
     }
 
-    fetchData()
+    fetchPopulationDataList()
+      .then((populationDataList) => setPopulationDataList(populationDataList ?? []))
+      .catch(() => {
+        console.error('データの取得に失敗しました')
+      })
   }, [prefectures])
 
   const createGraphData = useCallback(() => {
