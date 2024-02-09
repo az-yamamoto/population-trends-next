@@ -1,8 +1,8 @@
-import GlobalHeader from '../organisms/GlobalHeader'
-import styles from './GraphPage.module.scss'
-import MainArea from '../organisms/MainArea'
 import { Prefecture } from '@/app/type/Prefecture'
 import { notFound } from 'next/navigation'
+import GlobalHeader from '../organisms/GlobalHeader'
+import MainArea from '../organisms/MainArea'
+import styles from './GraphPage.module.scss'
 
 async function fetchPrefectures() {
   const res = await fetch('https://opendata.resas-portal.go.jp/api/v1/prefectures', {
@@ -54,7 +54,7 @@ export default async function GraphPage() {
     <>
       <GlobalHeader />
       <div className={styles.container}>
-        <MainArea prefecturesData={prefecturesData} />
+        <MainArea prefecturesDatas={prefecturesData} />
       </div>
     </>
   )
