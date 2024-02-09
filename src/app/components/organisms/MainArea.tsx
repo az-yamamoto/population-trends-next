@@ -10,8 +10,7 @@ export default function MainArea(props: Props) {
   const [prefectures, setPrefectures] = useState<PrefectureAndColor[]>(prefecturesData)
 
   const updatePrefecturesData = (code: number) => {
-    const copyPrefecturesDatas = [...prefectures]
-    const newPrefecturesDatas = copyPrefecturesDatas.map((prefecture) => {
+    const newPrefecturesDatas = [...prefectures].map((prefecture) => {
       if (code === prefecture.prefCode) {
         return { ...prefecture, value: !prefecture.value }
       }
