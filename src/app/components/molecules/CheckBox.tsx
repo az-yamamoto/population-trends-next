@@ -1,6 +1,13 @@
 'use client'
 import styles from './CheckBox.module.scss'
 
+type Props = {
+  id: string
+  get: boolean
+  set: () => void
+  children: React.ReactNode
+}
+
 export const CheckBox = (props: Props) => {
   const { id, get, set, children } = props
 
@@ -16,11 +23,4 @@ export const CheckBox = (props: Props) => {
       </label>
     </div>
   )
-}
-
-type Props = {
-  id: string
-  get: boolean
-  set: () => void
-  children: React.ReactNode
 }
