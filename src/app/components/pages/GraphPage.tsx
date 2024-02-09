@@ -1,6 +1,6 @@
 import { Prefecture } from '@/app/type/Prefecture'
 import { notFound } from 'next/navigation'
-import GlobalHeader from '../organisms/GlobalHeader'
+import GlobalHeader from '../atoms/GlobalHeader'
 import MainArea from '../organisms/MainArea'
 import styles from './GraphPage.module.scss'
 
