@@ -1,5 +1,5 @@
 'use client'
-import CheckBox from '../molecules/CheckBox'
+import { CheckBox } from '../molecules/CheckBox'
 import { PrefectureAndColor } from '../pages/GraphPage'
 import styles from './ListOfPrefecturesArea.module.scss'
 

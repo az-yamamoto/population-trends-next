@@ -1,7 +1,7 @@
 'use client'
 import styles from './CheckBox.module.scss'
 
-export default function CheckBox(props: Props) {
+export const CheckBox = (props: Props) => {
   const { id, get, set, children } = props
 
   const hundleOnClick = (): void => {
