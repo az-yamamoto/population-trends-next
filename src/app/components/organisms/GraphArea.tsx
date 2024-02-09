@@ -58,18 +58,18 @@ export default function GraphArea(props: Props) {
     if (!populationDataList) return
     // 年ごとに都道府県のデータをまとめる
     const mergedData: Record<number, ChartData> = {}
-    populationDataList.forEach((populationData) => {
-      const { prefName, data } = populationData
-      data.forEach((category) => {
-        if (category.label !== graphTypeName) return
-        category.data.forEach((item) => {
-          if (!mergedData[item.year]) {
-            mergedData[item.year] = { name: item.year }
-          }
-          // 都道府県のデータを追加
-          mergedData[item.year][prefName] = item.value
+    populationDataList.forEach(({ prefName, data }) => {
+      data
+        .filter((category) => category.label === graphTypeName)
+        .forEach((category) => {
+          category.data.forEach((item) => {
+            if (!mergedData[item.year]) {
+              mergedData[item.year] = { name: item.year }
+            }
+            // 都道府県のデータを追加
+            mergedData[item.year][prefName] = item.value
+          })
         })
-      })
     })
     // ChartData[]形式のデータに変換
     const newGraphData = Object.values(mergedData)
