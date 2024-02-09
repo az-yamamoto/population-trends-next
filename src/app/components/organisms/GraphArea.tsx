@@ -1,10 +1,10 @@
 'use client'
+import { PopulationComposition } from '@/app/type/PopulationComposition'
 import { useCallback, useEffect, useState } from 'react'
 import LineGraph, { ChartData } from '../molecules/LineGraph'
-import styles from './GraphArea.module.scss'
 import Radio from '../molecules/Radio'
-import { PopulationComposition } from '@/app/type/PopulationComposition'
 import { PrefectureAndColor } from '../pages/GraphPage'
+import styles from './GraphArea.module.scss'
 
 const GraphType = [
   { name: '総人口', value: 0 },
@@ -25,7 +25,7 @@ export default function GraphArea(props: Props) {
     const fetchData = async () => {
       try {
         // APIルートに対してリクエストを行う
-        const response = await fetch('/api/populationComposition', {
+        const response = await fetch('/api/population-composition', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
