@@ -1,6 +1,6 @@
-import GlobalHeader from '../organisms/GlobalHeader'
+import GlobalHeader from '../atoms/GlobalHeader'
 import styles from './GraphPage.module.scss'
-import MainArea from '../organisms/MainArea'
+import { MainArea } from '../organisms/MainArea'
 import { Prefecture } from '@/app/type/Prefecture'
 import { notFound } from 'next/navigation'
 
@@ -13,9 +13,7 @@ async function fetchPrefectures() {
   if (!res.ok) {
     throw new Error('Failed to fetch prefectures')
   }
-  const response = await res.json()
-  const prefectures: Prefecture[] = response.result
-  return prefectures
+  return (await res.json()).result as Prefecture[]
 }
 
 export default async function GraphPage() {
@@ -33,28 +31,17 @@ export default async function GraphPage() {
     return `rgb(${r}, ${g}, ${b})`
   }
 
-  const generateRandomColors = (count: number) => {
-    const colors = []
-    for (let i = 0; i < count; i += 1) {
-      colors.push(getRandomColor())
-    }
-    return colors
-  }
-
-  // 例: 47個のランダムな色を生成
-  const randomColors = generateRandomColors(47)
-
-  let prefecturesData: PrefectureAndColor[] = prefectures.map((prefecture, index) => ({
+  let prefecturesDatas: PrefectureAndColor[] = prefectures.map((prefecture) => ({
     ...prefecture,
     value: false,
-    color: randomColors[index],
+    color: getRandomColor(),
   }))
 
   return (
     <>
       <GlobalHeader />
       <div className={styles.container}>
-        <MainArea prefecturesData={prefecturesData} />
+        <MainArea prefecturesDatas={prefecturesDatas} />
       </div>
     </>
   )

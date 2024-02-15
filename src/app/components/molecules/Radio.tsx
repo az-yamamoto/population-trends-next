@@ -1,29 +1,29 @@
 'use client'
 import styles from './Radio.module.scss'
 
+type Props<T> = {
+  id: string
+  selectedValue: T
+  onClick: (value: T) => void
+  value: T
+  children: React.ReactNode
+}
+
 export default function Radio<T>(props: Props<T>) {
-  const { id, get, set, value, children } = props
+  const { id, selectedValue, onClick, value, children } = props
 
-  const checked = get === value
+  const checked = selectedValue === value
 
-  const hundleOnClick = (): void => {
-    set(value)
+  const hundleClick = (): void => {
+    onClick(value)
   }
 
   return (
     <div className={styles.container}>
-      <input onChange={hundleOnClick} className={styles.radio} type="radio" checked={checked} id={id} />
+      <input onChange={hundleClick} className={styles.radio} type="radio" checked={checked} id={id} />
       <label htmlFor={id} className={styles.label}>
         {children}
       </label>
     </div>
   )
-}
-
-type Props<T> = {
-  id: string
-  get: T
-  set: (value: T) => void
-  value: T
-  children: React.ReactNode
 }

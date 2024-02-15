@@ -13,7 +13,11 @@ const GraphType = [
   { name: '老年人口', value: 3 },
 ]
 
-export default function GraphArea(props: Props) {
+type Props = {
+  prefectures: PrefectureAndColor[]
+}
+
+export const GraphArea = (props: Props) => {
   const { prefectures } = props
   const [populationDataList, setPopulationDataList] = useState<PopulationComposition[]>([])
   const [graphData, setGraphData] = useState<ChartData[]>([])
@@ -22,10 +26,10 @@ export default function GraphArea(props: Props) {
   useEffect(() => {
     if (!prefectures || prefectures.length === 0) return
 
-    const fetchData = async () => {
+    const fetchPopulationDataList = async () => {
       try {
         // APIルートに対してリクエストを行う
-        const response = await fetch('/api/populationComposition', {
+        const response = await fetch('/api/population-composition', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -37,16 +41,18 @@ export default function GraphArea(props: Props) {
           throw new Error('Failed to fetch data from API')
         }
 
-        // 取得したデータを使ってグラフデータをセット
-        const result = await response.json()
-        setPopulationDataList(result)
+        return (await response.json()) as PopulationComposition[]
       } catch (error) {
         console.error('Error fetching data from API:', error)
         // エラーが発生した場合の処理を追加
       }
     }
 
-    fetchData()
+    fetchPopulationDataList()
+      .then((populationDataList) => setPopulationDataList(populationDataList ?? []))
+      .catch(() => {
+        console.error('データの取得に失敗しました')
+      })
   }, [prefectures])
 
   const createGraphData = useCallback(() => {
@@ -54,19 +60,19 @@ export default function GraphArea(props: Props) {
     if (!graphTypeName) return
     if (!populationDataList) return
     // 年ごとに都道府県のデータをまとめる
-    const mergedData: Record<number, ChartData> = {}
-    populationDataList.forEach((populationData) => {
-      const { prefName, data } = populationData
-      data.forEach((category) => {
-        if (category.label !== graphTypeName) return
-        category.data.forEach((item) => {
-          if (!mergedData[item.year]) {
-            mergedData[item.year] = { name: item.year }
-          }
-          // 都道府県のデータを追加
-          mergedData[item.year][prefName] = item.value
+    const mergedData: { [year: number]: ChartData } = {}
+    populationDataList.forEach(({ prefName, data }) => {
+      data
+        .filter((category) => category.label === graphTypeName)
+        .forEach((category) => {
+          category.data.forEach((item) => {
+            if (!mergedData[item.year]) {
+              mergedData[item.year] = { name: item.year }
+            }
+            // 都道府県のデータを追加
+            mergedData[item.year][prefName] = item.value
+          })
         })
-      })
     })
     // ChartData[]形式のデータに変換
     const newGraphData = Object.values(mergedData)
@@ -83,7 +89,13 @@ export default function GraphArea(props: Props) {
     <div className={styles.container}>
       <div className={styles.radio}>
         {GraphType.map((type) => (
-          <Radio key={type.name} id={`${type.name}`} get={graphType} set={setGraphType} value={type.value}>
+          <Radio
+            key={type.name}
+            id={`${type.name}`}
+            selectedValue={graphType}
+            onClick={setGraphType}
+            value={type.value}
+          >
             {type.name}
           </Radio>
         ))}
@@ -95,8 +107,4 @@ export default function GraphArea(props: Props) {
       )}
     </div>
   )
-}
-
-type Props = {
-  prefectures: PrefectureAndColor[]
 }
